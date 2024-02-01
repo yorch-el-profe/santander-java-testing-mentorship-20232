@@ -2,9 +2,11 @@ package org.bedu.movies.config;
 
 import org.bedu.movies.dto.ErrorDTO;
 import org.bedu.movies.exception.ApiException;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.LinkedList;
 public class ApiErrorHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErrorDTO validationErrors(MethodArgumentNotValidException ex) {
     List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
     List<String> errors = new LinkedList<>();
@@ -32,6 +35,7 @@ public class ApiErrorHandler {
   }
 
   @ExceptionHandler(ApiException.class)
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
   public ErrorDTO apiErrors(ApiException ex) {
 
     ErrorDTO error = new ErrorDTO();
