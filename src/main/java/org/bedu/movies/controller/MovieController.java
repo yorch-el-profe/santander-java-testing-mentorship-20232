@@ -3,6 +3,7 @@ package org.bedu.movies.controller;
 import org.bedu.movies.dto.CreateMovieDTO;
 import org.bedu.movies.dto.MovieDTO;
 import org.bedu.movies.dto.UpdateMovieDTO;
+import org.bedu.movies.exception.MovieNotFoundException;
 import org.bedu.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -45,7 +46,7 @@ public class MovieController {
 
   @PutMapping("{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void update(@Param("id") long id, @Valid @RequestBody UpdateMovieDTO dto) throws Exception {
+  public void update(@Param("id") long id, @Valid @RequestBody UpdateMovieDTO dto) throws MovieNotFoundException {
     service.update(id, dto);
   }
 

@@ -36,7 +36,7 @@ public class MovieService {
     return mapper.toDTO(result);
   }
 
-  public void update(long id, UpdateMovieDTO dto) throws Exception {
+  public void update(long id, UpdateMovieDTO dto) throws MovieNotFoundException {
     Optional<Movie> result = repository.findById(id);
 
     if (result.isEmpty()) {
