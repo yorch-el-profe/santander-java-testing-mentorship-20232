@@ -59,4 +59,30 @@ class MovieRepositoryTest {
 
     assertTrue(result.size() == 2);
   }
+
+  @Test
+  @DisplayName("Repository should filter movies by title")
+  void findByTitleTest() {
+
+    Movie movie1 = new Movie();
+    Movie movie2 = new Movie();
+    Movie movie3 = new Movie();
+
+    movie1.setTitle("Toy Story 3");
+    movie1.setYear(2010);
+
+    movie2.setTitle("Toy Story 2");
+    movie2.setYear(2010);
+
+    movie3.setTitle("Scary Movie");
+    movie3.setYear(2000);
+
+    manager.persist(movie1);
+    manager.persist(movie2);
+    manager.persist(movie3);
+
+    List<Movie> result = repository.findByTitleContaining("Toy Story");
+
+    assertTrue(result.size() == 2);
+  }
 }
